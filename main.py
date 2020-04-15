@@ -14,7 +14,6 @@ STREAM_URL = "https://stream.wappuradio.fi/wappuradio.opus"
 def save(prog):
     print (prog)
     name = re.sub('[^A-Za-z0-9]', '', prog['name'])
-    #start = prog['start'].strftime('%Y-%m-%d_%H:%M:%S')
     start = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
     fname = "%s_%s.opus" % (name, start)
     cmd = "curl -s --output %s %s" % (fname, STREAM_URL)
@@ -30,10 +29,8 @@ def main():
     r = requests.get(PROGRAMS)
     unsorted_data = r.json()
     data = sorted(unsorted_data, key=lambda k: k['start']) 
-    #print (data)
+
     for prog in data:
-        #print (prog)
-        #return None
         start = datetime.strptime(prog['start'], '%Y-%m-%dT%H:%M:%S+03:00') - timedelta(minutes=5)
         prog['start'] = start
         end = datetime.strptime(prog['end'], '%Y-%m-%dT%H:%M:%S+03:00') + timedelta(minutes=5)
@@ -41,7 +38,6 @@ def main():
         if datetime.now() > end:
             print ('Skipping %s' % (title,))
             continue
-        #print (start, end, delay)
 
         delay = (start - datetime.now()).total_seconds()
         if delay > 900:
