@@ -36,7 +36,7 @@ def main():
         end = datetime.strptime(prog['end'], '%Y-%m-%dT%H:%M:%S+03:00') + timedelta(minutes=5)
         prog['end'] = end
         if datetime.now() > end:
-            print ('Skipping %s' % (title,))
+            print ('Skipping %s' % (prog["title"],))
             continue
 
         delay = (start - datetime.now()).total_seconds()
