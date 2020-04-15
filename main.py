@@ -40,6 +40,7 @@ def main():
             continue
 
         delay = (start - datetime.now()).total_seconds()
+        # Arvoin tähän vaan jotaan lol
         if delay > 900:
             time.sleep(delay-300)
         delay = (start - datetime.now()).total_seconds()
